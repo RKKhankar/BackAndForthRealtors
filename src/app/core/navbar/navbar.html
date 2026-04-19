@@ -1,14 +1,18 @@
 <nav class="navbar">
 
   <div class="brand">
-    <img src="images/logo.png" alt="logo">
+    <img src="/images/logo.png" alt="logo">
     <span>B&F Realtors</span>
   </div>
 
   <ul class="nav-links">
 
     <li>
-      <a routerLink="/properties" routerLinkActive="active">Home</a>
+      <a routerLink="/properties"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">
+         Home
+      </a>
     </li>
 
     <li>
@@ -19,12 +23,12 @@
       <a routerLink="/contact" routerLinkActive="active">Contact</a>
     </li>
 
-    <!-- 🔐 Login -->
+    <!-- Login -->
     <li *ngIf="!authService.isAuthenticated()">
       <a routerLink="/login" routerLinkActive="active">Login</a>
     </li>
 
-    <!-- 🔐 Logout -->
+    <!-- Logout -->
     <li *ngIf="authService.isAuthenticated()">
       <a (click)="logout()">Logout</a>
     </li>
