@@ -1,0 +1,38 @@
+<div class="login-container">
+
+  <h2>Login</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <!-- Email -->
+    <input 
+      type="email" 
+      placeholder="Enter Email"
+      formControlName="email"
+    />
+
+    <div *ngIf="submitted && f['email'].errors" class="error">
+      <small *ngIf="f['email'].errors['required']">Email is required</small>
+      <small *ngIf="f['email'].errors['email']">Invalid email</small>
+    </div>
+
+    <!-- Password -->
+    <input 
+      type="password" 
+      placeholder="Enter Password"
+      formControlName="password"
+    />
+
+    <div *ngIf="submitted && f['password'].errors" class="error">
+      <small *ngIf="f['password'].errors['required']">Password is required</small>
+      <small *ngIf="f['password'].errors['minlength']">
+        Minimum 4 characters required
+      </small>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit">Login</button>
+
+  </form>
+
+</div>

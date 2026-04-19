@@ -1,0 +1,227 @@
+:root {
+  --card-bg: #1c233c;
+  --accent: #10859a;
+  --muted: #bcadcb;
+  --input-border: #8233b0;
+  --focus-shadow: rgba(52,152,219,0.18);
+  --success: #27ae60;
+  --white: #ffffff;
+  --text-dark: #111;
+}
+
+/* Container */
+.contact-container {
+  max-width: 720px;
+  margin: 36px auto;
+  padding: 28px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #e6e6e6;
+}
+
+/* Title */
+.contact-container h2 {
+  text-align: center;
+  margin-bottom: 18px;
+  color: var(--accent);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Mode switch */
+.mode-switch {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.mode-switch button {
+  background: #263741;
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.18s ease;
+}
+.mode-switch button.active {
+  background: linear-gradient(90deg, rgba(16,133,154,0.12), rgba(117,4,173,0.06));
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(16,133,154,0.08);
+}
+
+/* Section title */
+.section-title {
+  color: var(--muted);
+  margin: 12px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Unified form controls */
+form input,
+form textarea,
+form select,
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--text-dark);
+  background: var(--white);
+  border: 1px solid var(--input-border);
+  transition: box-shadow 0.18s ease, transform 0.12s ease;
+}
+
+/* Select dropdown styling */
+form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #f8f8f8;
+  border: 1px solid var(--input-border);
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%238233b0' height='24' viewBox='0 0 24 24' width='24'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.2s ease;
+}
+form select:hover {
+  background-color: #f0f0f0;
+}
+form select:focus {
+  border-color: #3f5868;
+  box-shadow: 0 0 6px rgba(52,152,219,0.4);
+  outline: none;
+}
+
+/* Date input styling (Preferred Move-in / Possession Date) */
+form input[type="date"] {
+  background-color: #f5b9c1; /* themed background */
+  border: 1px solid var(--input-border);
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.2s ease;
+  position: relative;
+}
+form input[type="date"]:hover {
+  background-color: #f0d1d6; /* subtle hover tint */
+}
+form input[type="date"]:focus {
+  outline: none;
+  box-shadow: 0 6px 20px var(--focus-shadow);
+  border-color: #3f5868;
+}
+
+/* Calendar icon (Chrome/Edge) */
+form input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.8;
+  filter: invert(30%) sepia(60%) saturate(400%) hue-rotate(260deg); /* accent tint */
+}
+form input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* Textarea specifics */
+form textarea {
+  min-height: 110px;
+  resize: vertical;
+  color: var(--text-dark);
+}
+
+/* Submit button */
+button[type="submit"] {
+  background: linear-gradient(135deg, #3498db, #2ecc71);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  transition: opacity 0.2s ease, transform 0.12s ease;
+}
+button[type="submit"]:hover {
+  transform: translateY(-1px);
+}
+button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Amenities multi-select */
+.amenities-group {
+  margin: 8px 0;
+}
+.amenities-label {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.amenities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.amenity {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(38, 26, 87, 0.95);
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.06);
+  color: var(--white);
+  font-size: 13px;
+}
+
+/* Validation messages */
+.error {
+  color: #ffb3b3;
+  font-size: 13px;
+  margin-top: -6px;
+  margin-bottom: 6px;
+}
+
+/* Success message */
+.success {
+  text-align: center;
+  margin-top: 18px;
+  color: var(--success);
+  font-weight: 600;
+}
+
+/* Accessibility helper */
+.sr {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}

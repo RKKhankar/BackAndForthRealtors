@@ -1,0 +1,94 @@
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 20px;
+  height: 55px;
+
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* BRAND */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+
+  position: relative;
+  cursor: pointer;
+
+  animation: fadeSlide 0.6s ease-in-out;
+}
+
+/* LOGO */
+.brand img {
+  height: 38px;
+  width: auto;
+}
+
+/* ENTRY ANIMATION */
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* UNDERLINE EFFECT */
+.brand::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+
+  width: 0;
+  height: 2px;
+  background: #00aaff;
+
+  transition: width 0.3s ease;
+}
+
+.brand:hover::after {
+  width: 100%;
+}
+
+/* NAV LINKS */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+/* LINKS */
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* HOVER */
+.nav-links a:hover {
+  color: #00aaff;
+}
+
+/* ACTIVE LINK */
+.nav-links a.active {
+  color: #00aaff;
+  border-bottom: 2px solid #00aaff;
+}

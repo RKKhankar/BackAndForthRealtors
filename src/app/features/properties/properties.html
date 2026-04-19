@@ -1,0 +1,34 @@
+<h2 class="heading">Available Properties</h2>
+
+<!-- 🔍 Search -->
+<input 
+  type="text" 
+  placeholder="Search by location..." 
+  [(ngModel)]="searchText"
+  (input)="filterProperties()"
+  class="search-box"
+/>
+
+<!-- PROPERTY CARDS -->
+<div class="property-container">
+
+  <div class="card" *ngFor="let property of filteredProperties">
+
+    <img [src]="property.image" alt="property">
+
+    <div class="card-content">
+      <h3>{{ property.title }}</h3>
+      <p>{{ property.location }}</p>
+
+      <p class="price">
+        ₹ {{ property.price | number:'1.0-0':'en-IN' }}
+      </p>
+
+      <button (click)="viewDetails(property)">
+        View Details
+      </button>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,219 @@
+<div class="contact-container">
+
+  <h2>Start a Conversation</h2>
+
+  <div class="mode-switch">
+    <button type="button" (click)="mode='property'" [class.active]="mode==='property'">Property Inquiry</button>
+    <button type="button" (click)="mode='general'" [class.active]="mode==='general'">General Enquiry</button>
+  </div>
+
+  <form (ngSubmit)="submitForm(contactForm)" #contactForm="ngForm" novalidate>
+
+    <!-- COMMON FIELDS -->
+    <input
+      name="name"
+      type="text"
+      placeholder="Full Name"
+      [(ngModel)]="name"
+      required
+      #nameRef="ngModel" />
+    <div class="error" *ngIf="nameRef.touched && nameRef.invalid">
+      <span *ngIf="nameRef.errors?.['required']">Please enter your name.</span>
+    </div>
+
+    <input
+      name="phone"
+      type="tel"
+      placeholder="Contact Number (10 digits)"
+      [(ngModel)]="phone"
+      required
+      pattern="[0-9]{10}"
+      minlength="10"
+      maxlength="10"
+      #phoneRef="ngModel" />
+    <div class="error" *ngIf="phoneRef.touched && phoneRef.invalid">
+      <span *ngIf="phoneRef.errors?.['required']">Phone is required.</span>
+      <span *ngIf="phoneRef.errors?.['pattern'] || phoneRef.errors?.['minlength'] || phoneRef.errors?.['maxlength']">
+        Enter a valid 10-digit number.
+      </span>
+    </div>
+
+    <input
+      name="email"
+      type="email"
+      placeholder="Email ID"
+      [(ngModel)]="email"
+      required
+      #emailRef="ngModel" />
+    <div class="error" *ngIf="emailRef.touched && emailRef.invalid">
+      <span *ngIf="emailRef.errors?.['required']">Email is required.</span>
+      <span *ngIf="emailRef.errors?.['email']">Enter a valid email address.</span>
+    </div>
+
+    <!-- PROPERTY MODE -->
+    <div *ngIf="mode === 'property'">
+      <h3 class="section-title">Property Enquiry</h3>
+
+      <!-- Preselected property or choose -->
+      <div *ngIf="propertyName; else chooseProperty">
+        <input type="text" [value]="propertyName" disabled />
+      </div>
+      <ng-template #chooseProperty>
+        <select name="propertyName" [(ngModel)]="propertyName" required #propRef="ngModel">
+          <option value="" disabled hidden>Select Property</option>
+          <option *ngFor="let p of availableProperties" [value]="p.id">{{ p.label }}</option>
+        </select>
+        <div class="error" *ngIf="propRef.touched && propRef.invalid">
+          <span *ngIf="propRef.errors?.['required']">Select a property.</span>
+        </div>
+      </ng-template>
+
+      <!-- Negotiation Preference -->
+      <select name="negotiation" [(ngModel)]="negotiation" required #negRef="ngModel">
+        <option value="" disabled hidden>Negotiation Preference</option>
+        <option *ngFor="let n of negotiationOptions" [value]="n">{{ n }}</option>
+      </select>
+      <div class="error" *ngIf="negRef.touched && negRef.invalid">
+        <span *ngIf="negRef.errors?.['required']">Select negotiation preference.</span>
+      </div>
+
+      <!-- Parking (property mode) -->
+      <select name="parkingProperty" [(ngModel)]="parking">
+        <option value="" disabled hidden>Parking Requirement</option>
+        <option *ngFor="let p of parkingOptions" [value]="p">{{ p }}</option>
+      </select>
+
+      <!-- Amenities (multi-select checkboxes) -->
+      <div class="amenities-group">
+        <div class="amenities-label">Amenities</div>
+        <div class="amenities-list">
+          <label class="amenity" *ngFor="let a of amenitiesOptions">
+            <input type="checkbox" [checked]="amenities.indexOf(a) !== -1" (change)="toggleAmenity(a)" />
+            <span>{{ a }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Site Visit -->
+      <select name="visitProperty" [(ngModel)]="visit">
+        <option value="" disabled hidden>Site Visit Availability</option>
+        <option *ngFor="let s of siteVisitOptions" [value]="s">{{ s }}</option>
+      </select>
+
+      <textarea name="messageProperty" placeholder="Your Message" [(ngModel)]="message"></textarea>
+    </div>
+
+    <!-- GENERAL ENQUIRY MODE -->
+    <div *ngIf="mode === 'general'">
+      <h3 class="section-title">General Enquiry</h3>
+
+      <select name="type" [(ngModel)]="propertyType" required #typeRef="ngModel">
+        <option value="" disabled hidden>Select Property Type</option>
+        <option value="Residential">Residential</option>
+        <option value="Commercial">Commercial</option>
+      </select>
+      <div class="error" *ngIf="typeRef.touched && typeRef.invalid">
+        <span *ngIf="typeRef.errors?.['required']">Select property type.</span>
+      </div>
+
+      <!-- Budget Range -->
+      <select name="budget" [(ngModel)]="budget" required #budgetRef="ngModel">
+        <option value="" disabled hidden>Select Budget Range</option>
+        <option *ngFor="let b of budgetOptions" [value]="b.value">{{ b.label }}</option>
+      </select>
+      <div class="error" *ngIf="budgetRef.touched && budgetRef.invalid">
+        <span *ngIf="budgetRef.errors?.['required']">Select budget range.</span>
+      </div>
+
+      <!-- City -->
+      <select name="city" [(ngModel)]="city" required #cityRef="ngModel">
+        <option value="" disabled hidden>Select City</option>
+        <option *ngFor="let item of cityAreas | keyvalue" [value]="item.key">{{ item.key }}</option>
+      </select>
+      <div class="error" *ngIf="cityRef.touched && cityRef.invalid">
+        <span *ngIf="cityRef.errors?.['required']">Select city.</span>
+      </div>
+
+      <!-- Area (depends on city) -->
+      <div *ngIf="city">
+        <select name="location" [(ngModel)]="location" required #locRef="ngModel">
+          <option value="" disabled hidden>Select Area in {{ city }}</option>
+          <option *ngFor="let a of cityAreas[city]" [value]="a">{{ a }}</option>
+        </select>
+        <div class="error" *ngIf="locRef.touched && locRef.invalid">
+          <span *ngIf="locRef.errors?.['required']">Select area.</span>
+        </div>
+      </div>
+
+      <!-- Configuration (only for Residential) -->
+      <div *ngIf="propertyType === 'Residential'">
+        <select name="config" [(ngModel)]="configuration">
+          <option value="" disabled hidden>Select Configuration</option>
+          <option value="1 BHK">1 BHK</option>
+          <option value="2 BHK">2 BHK</option>
+          <option value="3 BHK">3 BHK</option>
+        </select>
+      </div>
+
+      <input name="area" type="number" placeholder="Area (sq.ft)" [(ngModel)]="area" />
+
+      <select name="possession" [(ngModel)]="possession">
+        <option value="" disabled hidden>Possession Status</option>
+        <option value="Ready to Move">Ready to Move</option>
+        <option value="Under Construction">Under Construction</option>
+      </select>
+
+      <!-- <input name="date" type="date" [(ngModel)]="moveInDate" /> -->
+       <!-- Dynamic date label based on possession status -->
+      <div *ngIf="possession">
+        <label>
+          {{ possession === 'Ready to Move' ? 'Preferred Move-in Date' : 'Expected Possession Date' }}
+        </label>
+        <input name="date" type="date" [(ngModel)]="moveInDate" />
+      </div>
+
+
+      <select name="furnishing" [(ngModel)]="furnishing">
+        <option value="" disabled hidden>Furnishing Status</option>
+        <option value="Unfurnished">Unfurnished</option>
+        <option value="Semi-furnished">Semi-furnished</option>
+        <option value="Fully furnished">Fully furnished</option>
+      </select>
+
+      <!-- Parking (general mode) -->
+      <select name="parkingGeneral" [(ngModel)]="parking">
+        <option value="" disabled hidden>Parking Requirement</option>
+        <option *ngFor="let p of parkingOptions" [value]="p">{{ p }}</option>
+      </select>
+
+      <!-- Amenities (multi-select checkboxes) -->
+      <div class="amenities-group">
+        <div class="amenities-label">Amenities</div>
+        <div class="amenities-list">
+          <label class="amenity" *ngFor="let a of amenitiesOptions">
+            <input type="checkbox" [checked]="amenities.indexOf(a) !== -1" (change)="toggleAmenity(a)" />
+            <span>{{ a }}</span>
+          </label>
+        </div>
+      </div>
+
+      <select name="visitGeneral" [(ngModel)]="visit">
+        <option value="" disabled hidden>Site Visit Availability</option>
+        <option *ngFor="let s of siteVisitOptions" [value]="s">{{ s }}</option>
+      </select>
+
+      <textarea name="notes" placeholder="Additional Notes" [(ngModel)]="message"></textarea>
+    </div>
+
+    <button type="submit"
+            [disabled]="!contactForm.form.valid || !isPhoneValid() || !isEmailValid() || (city && !location)">
+      Submit
+    </button>
+
+  </form>
+
+  <p *ngIf="submitted" class="success">
+    ✅ Your enquiry has been submitted successfully. We’ll get back to you shortly.
+  </p>
+
+</div>
