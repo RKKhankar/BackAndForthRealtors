@@ -134,17 +134,19 @@ form input[type="date"]:focus {
 }
 
 /* Calendar icon (Chrome/Edge) */
-form input[type="date"]::-webkit-calendar-picker-indicator {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  opacity: 0.8;
-  filter: invert(30%) sepia(60%) saturate(400%) hue-rotate(260deg); /* accent tint */
-}
-form input[type="date"]::-webkit-calendar-picker-indicator:hover {
-  opacity: 1;
+form input[type="date"] {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+
+  background-color: #f5b9c1;
+  border: 1px solid var(--input-border);
+  padding: 10px 12px;
+
+  border-radius: 10px;
+  font-size: 14px;
+
+  box-sizing: border-box;
 }
 
 /* Textarea specifics */
@@ -189,15 +191,16 @@ button[type="submit"]:disabled {
   gap: 8px;
 }
 .amenity {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: rgba(38, 26, 87, 0.95);
   padding: 6px 10px;
   border-radius: 20px;
   border: 1px solid rgba(0,0,0,0.06);
   color: var(--white);
   font-size: 13px;
+  white-space: nowrap;
 }
 
 /* Validation messages */
@@ -224,4 +227,16 @@ button[type="submit"]:disabled {
   height: 1px;
   width: 1px;
   overflow: hidden;
+}
+
+.amenity input {
+  margin: 0;
+  transform: scale(1.1);
+}
+
+@media (max-width: 480px) {
+  form input[type="date"] {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
 }
