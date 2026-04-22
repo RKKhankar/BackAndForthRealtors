@@ -1,21 +1,25 @@
+/* ================= NAVBAR ================= */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between;   /* brand left, links right */
   align-items: center;
   padding: 10px 20px;
   background: rgba(0, 0, 0, 0.9);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
-  flex-wrap: wrap;
+  border-bottom: 1px solid #334155;
+  box-sizing: border-box;          /* prevents overflow */
 }
 
-/* Brand */
+/* ================= BRAND ================= */
 .brand {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: rgb(120, 110, 110);
+  color: #94a3b8;
   font-weight: bold;
   font-size: 16px;
 }
@@ -25,13 +29,20 @@
   filter: brightness(1.2) contrast(1.1);
 }
 
-/* Links */
+/* ================= NAV LINKS ================= */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 25px;
+  flex-wrap: nowrap;              /* FIX: prevent wrapping */
+  gap: 20px;
   margin: 0;
   padding: 0;
+  overflow-x: auto;               /* allow horizontal scroll if needed */
+  scrollbar-width: none;          /* Firefox */
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none;                  /* Chrome */
 }
 
 .nav-links a {
@@ -40,19 +51,21 @@
   font-weight: 500;
   transition: 0.3s;
   position: relative;
+  white-space: nowrap;            /* keep text in one line */
 }
 
-/* Hover */
+/* ================= HOVER ================= */
 .nav-links a:hover {
-  color: white;
+  color: #fff;
 }
 
-/* Active link */
+/* ================= ACTIVE ================= */
 .nav-links a.active {
   color: #00aaff;
+  font-weight: 600;
 }
 
-/* Underline animation */
+/* ================= UNDERLINE EFFECT ================= */
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -69,22 +82,36 @@
   width: 100%;
 }
 
-
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
-
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+  }
+
+  .brand {
+    margin-bottom: 8px;
   }
 
   .nav-links {
     width: 100%;
-    justify-content: space-around;
-    margin-top: 10px;
+    justify-content: flex-start;
     gap: 10px;
+    padding-bottom: 5px;
   }
 
-  .brand {
-    margin-bottom: 5px;
+  .nav-links a {
+    flex: 0 0 auto;              /* prevent shrinking */
+    padding: 8px 12px;
+    font-size: 14px;
   }
+}
+
+/* ================= BODY OFFSET ================= */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #0b3368;
+  padding-top: 60px;            /* offset for fixed navbar */
 }

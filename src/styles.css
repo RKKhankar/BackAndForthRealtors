@@ -1,20 +1,38 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #020618;
+  color: #94a3b8;
+  padding: 15px 20px;
+  z-index: 1000;          /* keeps it above content */
+  border-bottom: 1px solid #334155;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #0f172a;   /* deep dark blue */
-  color: #0b3368;        /* soft white text */
+  background: #0f172a;    /* deep dark blue */
+  color: #94a3b8;         /* soft text */
+  padding-top: 60px;      /* offset for navbar height */
 }
 
+
+
 .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   text-align: center;
   padding: 15px;
   background: #020618;
   color: #94a3b8;
   font-size: 13px;
   border-top: 1px solid #334155;
-  margin-top: 220px;
 }
 
-* {
-  box-sizing: border-box;
+body {
+  padding-bottom: 50px;   /* offset for footer height */
 }
