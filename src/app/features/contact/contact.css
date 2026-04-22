@@ -194,13 +194,15 @@ button[type="submit"]:disabled {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(38, 26, 87, 0.95);
+
   padding: 6px 10px;
   border-radius: 20px;
-  border: 1px solid rgba(0,0,0,0.06);
-  color: var(--white);
+
+  background: rgba(38, 26, 87, 0.95);
+  color: white;
   font-size: 13px;
-  white-space: nowrap;
+  cursor: pointer;
+
 }
 
 /* Validation messages */
@@ -231,7 +233,7 @@ button[type="submit"]:disabled {
 
 .amenity input {
   margin: 0;
-  transform: scale(1.1);
+  flex-shrink: 0;
 }
 
 @media (max-width: 480px) {
@@ -239,4 +241,16 @@ button[type="submit"]:disabled {
     font-size: 13px;
     padding: 8px 10px;
   }
+}
+.amenity input {
+  display: none;
+}
+
+.amenity {
+  border: 1px solid transparent;
+}
+
+.amenity input:checked + span {
+  color: #00aaff;
+  font-weight: 600;
 }
